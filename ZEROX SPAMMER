@@ -1,0 +1,404 @@
+-- [[ ⚡ ZEROX V1 SPAMMER - KIAN STYLE MENU & BAR EDITION ⚡ ]] --
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TextChatService = game:GetService("TextChatService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+pcall(function()
+	if playerGui:FindFirstChild("ControlCenterGui") then
+		playerGui["ControlCenterGui"]:Destroy()
+	end
+end)
+
+local RP_NAME = "⚠️ZEROX V1 SPAMMER LOADED | BE READY H8TERS⚠️!!!"
+local RP_BIO  = "🌸ZEROX V1 SPAMMER LOADED🌸!!!"
+
+-- Emojis list
+local emojis = {"🌸", "⚠️", "🔥", "🚨", "🩸", "💀", "😃", "🥴", "⚡", "👑", "😂", "🥶", "🌟", "☠️", "🍌", "🐍", "🤣", "🌚", "👽"}
+local emojiCycleEnabled = false
+local symbolCycleEnabled = false
+
+local function getChannel()
+	local success, channel = pcall(function()
+		local val = TextChatService:FindFirstChild("TextChannels")
+		return val and val:FindFirstChild("RBXGeneral")
+	end)
+	return success and channel or nil
+end
+
+local function sendMessage(text)
+	local channel = getChannel()
+	if channel then
+		pcall(function() channel:SendAsync(text) end)
+	else
+		pcall(function()
+			local events = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+			if events and events:FindFirstChild("SayMessageRequest") then
+				events.SayMessageRequest:FireServer(text, "All")
+			end
+		end)
+	end
+end
+
+-- Chat Send on Load Function without \n
+task.spawn(function()
+	task.wait(1.5)
+	sendMessage("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 🩸BEWARE OF ZEROX SPAMMER V1 USER | NEW SPAMMER BY LORD ZEROX |🔥 DEADLIEST SPAMMER🔥!!!")
+end)
+
+task.spawn(function()
+	local RE = ReplicatedStorage:WaitForChild("RE", 8)
+	if not RE then return end
+
+	local NameRemote = RE:FindFirstChild("1RPNam1eTex1t")
+	local ColorRemote = RE:FindFirstChild("1RPNam1eColo1r")
+
+	if NameRemote then
+		for i = 1, 5 do
+			pcall(function()
+				NameRemote:FireServer("RolePlayName", RP_NAME)
+				NameRemote:FireServer("RolePlayBio", RP_BIO)
+			end)
+			task.wait(0.3)
+		end
+	end
+
+	if ColorRemote then
+		while true do
+			local c = Color3.fromHSV((tick() % 4) / 4, 1, 1)
+			pcall(function()
+				ColorRemote:FireServer("PickingRPNameColor", c)
+				ColorRemote:FireServer("PickingRPBioColor", c)
+			end)
+			task.wait(0.1)
+		end
+	end
+end)
+
+-- Clean Lines without \n
+local zeroxLines = {
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH VOLCANO🌋",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]X MEH ITACHI UCHIHA KA SHARINGAN🩸",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH BULB💡",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH BOMB💣",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH SANA COMPANY🌊",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH DISC💿",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH MOWGLI🐻",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH GHADI⏱️",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH SAND⌛",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             [TARGET NAME]TMX MEH NEROLAC🫟"
+}
+
+local ScreenGui = Instance.new("ScreenGui", playerGui)
+ScreenGui.Name = "ControlCenterGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.DisplayOrder = 999
+
+-- LOADING PANEL WITH BAR INDICATOR (0% to 100%)
+local LoadingFrame = Instance.new("Frame", ScreenGui)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(24, 26, 33)
+LoadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+LoadingFrame.Size = UDim2.fromOffset(400, 160)
+LoadingFrame.Visible = true
+Instance.new("UICorner", LoadingFrame).CornerRadius = UDim.new(0, 12)
+
+local LoadingStroke = Instance.new("UIStroke", LoadingFrame)
+LoadingStroke.Color = Color3.fromRGB(55, 60, 75)
+LoadingStroke.Thickness = 1.5
+
+local LoadingTitle = Instance.new("TextLabel", LoadingFrame)
+LoadingTitle.Size = UDim2.new(1, 0, 0, 30)
+LoadingTitle.Position = UDim2.fromOffset(0, 15)
+LoadingTitle.BackgroundTransparency = 1
+LoadingTitle.Text = "⚡ ZEROX V1 SPAMMER ⚡"
+LoadingTitle.TextColor3 = Color3.fromRGB(0, 255, 120)
+LoadingTitle.TextSize = 16
+LoadingTitle.Font = Enum.Font.SourceSansBold
+
+local PercentLabel = Instance.new("TextLabel", LoadingFrame)
+PercentLabel.Size = UDim2.new(1, 0, 0, 35)
+PercentLabel.Position = UDim2.fromOffset(0, 45)
+PercentLabel.BackgroundTransparency = 1
+PercentLabel.Text = "0%"
+PercentLabel.TextColor3 = Color3.fromRGB(0, 255, 150)
+PercentLabel.TextSize = 22
+PercentLabel.Font = Enum.Font.SourceSansBold
+
+local BarBg = Instance.new("Frame", LoadingFrame)
+BarBg.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+BarBg.Position = UDim2.new(0.1, 0, 0.7, 0)
+BarBg.Size = UDim2.new(0.8, 0, 0, 15)
+Instance.new("UICorner", BarBg).CornerRadius = UDim.new(1, 0)
+
+local BarFill = Instance.new("Frame", BarBg)
+BarFill.BackgroundColor3 = Color3.fromRGB(0, 255, 120)
+BarFill.Size = UDim2.new(0, 0, 1, 0)
+Instance.new("UICorner", BarFill).CornerRadius = UDim.new(1, 0)
+
+-- MAIN GUI FRAME (Kian Spammer Style Menu)
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.BackgroundColor3 = Color3.fromRGB(24, 26, 33)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+MainFrame.Size = UDim2.fromOffset(510, 465)
+MainFrame.Active = true
+MainFrame.Draggable = false
+MainFrame.Visible = false
+MainFrame.ClipsDescendants = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
+
+local MainStroke = Instance.new("UIStroke", MainFrame)
+MainStroke.Color = Color3.fromRGB(55, 60, 75)
+MainStroke.Thickness = 1.5
+
+-- Top Title
+local TitleText = Instance.new("TextLabel", MainFrame)
+TitleText.Size = UDim2.new(1, -30, 0, 40)
+TitleText.Position = UDim2.fromOffset(20, 15)
+TitleText.BackgroundTransparency = 1
+TitleText.Text = "⚡ ZEROX V1 SPAMMER ⚡"
+TitleText.TextColor3 = Color3.fromRGB(0, 255, 120)
+TitleText.TextSize = 18
+TitleText.Font = Enum.Font.SourceSansBold
+TitleText.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Emoji Cycle Toggle Button (Left)
+local EmojiCycleBtn = Instance.new("TextButton", MainFrame)
+EmojiCycleBtn.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+EmojiCycleBtn.Position = UDim2.fromOffset(20, 60)
+EmojiCycleBtn.Size = UDim2.new(0, 220, 0, 32)
+EmojiCycleBtn.Text = "EMOJI CYCLE: OFF"
+EmojiCycleBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+EmojiCycleBtn.TextSize = 12
+EmojiCycleBtn.Font = Enum.Font.SourceSansBold
+Instance.new("UICorner", EmojiCycleBtn).CornerRadius = UDim.new(0, 8)
+
+-- Symbol Cycle Toggle Button (Right)
+local SymbolCycleBtn = Instance.new("TextButton", MainFrame)
+SymbolCycleBtn.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+SymbolCycleBtn.Position = UDim2.fromOffset(260, 60)
+SymbolCycleBtn.Size = UDim2.new(0, 225, 0, 32)
+SymbolCycleBtn.Text = "SYMBOL CYCLE: OFF"
+SymbolCycleBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+SymbolCycleBtn.TextSize = 12
+SymbolCycleBtn.Font = Enum.Font.SourceSansBold
+Instance.new("UICorner", SymbolCycleBtn).CornerRadius = UDim.new(0, 8)
+
+local emojiIndex = 1
+EmojiCycleBtn.MouseButton1Click:Connect(function()
+	emojiCycleEnabled = not emojiCycleEnabled
+	if emojiCycleEnabled then
+		EmojiCycleBtn.Text = "EMOJI CYCLE: ON 🌸"
+		EmojiCycleBtn.TextColor3 = Color3.fromRGB(255, 150, 200)
+		EmojiCycleBtn.BackgroundColor3 = Color3.fromRGB(45, 25, 40)
+	else
+		EmojiCycleBtn.Text = "EMOJI CYCLE: OFF"
+		EmojiCycleBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+		EmojiCycleBtn.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+	end
+end)
+
+SymbolCycleBtn.MouseButton1Click:Connect(function()
+	symbolCycleEnabled = not symbolCycleEnabled
+	if symbolCycleEnabled then
+		SymbolCycleBtn.Text = "SYMBOL CYCLE: ON ⚡"
+		SymbolCycleBtn.TextColor3 = Color3.fromRGB(0, 255, 120)
+		SymbolCycleBtn.BackgroundColor3 = Color3.fromRGB(20, 45, 30)
+	else
+		SymbolCycleBtn.Text = "SYMBOL CYCLE: OFF"
+		SymbolCycleBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+		SymbolCycleBtn.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+	end
+end)
+
+-- Draggable Logic for Main Menu via Title Area
+local dragging, dragStart, startPos
+
+TitleText.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = MainFrame.Position
+		
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - dragStart
+		MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+-- Helper function to create input fields
+local function createInputField(labelText, defaultText, posY)
+	local label = Instance.new("TextLabel", MainFrame)
+	label.BackgroundTransparency = 1
+	label.Position = UDim2.fromOffset(25, posY)
+	label.Size = UDim2.fromOffset(130, 35)
+	label.Text = labelText
+	label.TextColor3 = Color3.fromRGB(220, 220, 220)
+	label.TextSize = 13
+	label.Font = Enum.Font.SourceSansBold
+	label.TextXAlignment = Enum.TextXAlignment.Left
+
+	local box = Instance.new("TextBox", MainFrame)
+	box.BackgroundColor3 = Color3.fromRGB(35, 39, 50)
+	box.Position = UDim2.fromOffset(165, posY)
+	box.Size = UDim2.new(0, 320, 0, 35)
+	box.PlaceholderText = "Enter value"
+	box.Text = defaultText
+	box.TextColor3 = Color3.fromRGB(0, 255, 150)
+	box.TextSize = 13
+	box.Font = Enum.Font.SourceSansBold
+	Instance.new("UICorner", box).CornerRadius = UDim.new(0, 8)
+	return box
+end
+
+-- 4 Target Boxes + Delay Box
+local TargetBox1 = createInputField("Target Clan 1:", "TMX", 105)
+local TargetBox2 = createInputField("Target Clan 2:", "", 150)
+local TargetBox3 = createInputField("Target Clan 3:", "", 195)
+local TargetBox4 = createInputField("Target Clan 4:", "", 240)
+local DelayBox   = createInputField("Delay (sec):", "1", 285)
+
+-- Status Label
+local StatusLabel = Instance.new("TextLabel", MainFrame)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Position = UDim2.fromOffset(25, 330)
+StatusLabel.Size = UDim2.new(1, -50, 0, 25)
+StatusLabel.Text = "Status: STOPPED / IDLE"
+StatusLabel.TextColor3 = Color3.fromRGB(255, 90, 90)
+StatusLabel.TextSize = 13
+StatusLabel.Font = Enum.Font.SourceSansBold
+StatusLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Bottom Start/Stop Button Bar
+local BottomBar = Instance.new("Frame", MainFrame)
+BottomBar.BackgroundColor3 = Color3.fromRGB(32, 36, 46)
+BottomBar.Position = UDim2.fromOffset(25, 370)
+BottomBar.Size = UDim2.new(0, 460, 0, 45)
+Instance.new("UICorner", BottomBar).CornerRadius = UDim.new(1, 0)
+
+local StartStopBtn = Instance.new("TextButton", BottomBar)
+StartStopBtn.Size = UDim2.new(1, 0, 1, 0)
+StartStopBtn.BackgroundTransparency = 1
+StartStopBtn.Text = "▶ START SPAM"
+StartStopBtn.TextColor3 = Color3.fromRGB(0, 255, 120)
+StartStopBtn.TextSize = 14
+StartStopBtn.Font = Enum.Font.SourceSansBold
+
+-- Flower Toggle Button (🌸) with Animation & Loading Bar completion
+task.spawn(function()
+	for i = 0, 100, 5 do
+		PercentLabel.Text = i .. "%"
+		BarFill.Size = UDim2.new(i / 100, 0, 1, 0)
+		task.wait(0.02)
+	end
+
+	LoadingFrame.Visible = false
+	MainFrame.Visible = true
+	MainFrame.Size = UDim2.fromOffset(0, 0)
+	TweenService:Create(MainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = UDim2.fromOffset(510, 465)}):Play()
+
+	if not ScreenGui:FindFirstChild("ToggleFlower") then
+		local ToggleBtn = Instance.new("TextButton", ScreenGui)
+		ToggleBtn.Name = "ToggleFlower"
+		ToggleBtn.Size = UDim2.new(0, 55, 0, 55)
+		ToggleBtn.Position = UDim2.new(0, 15, 0.45, 0)
+		ToggleBtn.BackgroundColor3 = Color3.fromRGB(25, 28, 36)
+		ToggleBtn.Text = "🌸"
+		ToggleBtn.TextSize = 24
+		ToggleBtn.Active = true
+		ToggleBtn.Draggable = true
+		Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(1, 0)
+		
+		local T_Stroke = Instance.new("UIStroke", ToggleBtn)
+		T_Stroke.Color = Color3.fromRGB(255, 150, 200)
+		T_Stroke.Thickness = 2
+
+		local isOpen = true
+		ToggleBtn.MouseButton1Click:Connect(function()
+			isOpen = not isOpen
+			if isOpen then
+				MainFrame.Visible = true
+				TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = UDim2.fromOffset(510, 465)}):Play()
+			else
+				local closeTween = TweenService:Create(MainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Size = UDim2.fromOffset(0, 0)})
+				closeTween:Play()
+				closeTween.Completed:Connect(function()
+					if not isOpen then MainFrame.Visible = false end
+				end)
+			end
+		end)
+	end
+end)
+
+-- Spammer Logic
+local spamming = false
+
+StartStopBtn.MouseButton1Click:Connect(function()
+	spamming = not spamming
+	if spamming then
+		StartStopBtn.Text = "■ STOP SPAM"
+		StartStopBtn.TextColor3 = Color3.fromRGB(255, 90, 90)
+		StatusLabel.Text = "Status: RUNNING..."
+		StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 120)
+
+		task.spawn(function()
+			local lineIndex = 1
+			while spamming do
+				local targets = {}
+				if TargetBox1.Text ~= "" then table.insert(targets, TargetBox1.Text) end
+				if TargetBox2.Text ~= "" then table.insert(targets, TargetBox2.Text) end
+				if TargetBox3.Text ~= "" then table.insert(targets, TargetBox3.Text) end
+				if TargetBox4.Text ~= "" then table.insert(targets, TargetBox4.Text) end
+
+				if #targets == 0 then table.insert(targets, "TMX") end
+
+				for _, targetVal in ipairs(targets) do
+					if not spamming then break end
+
+					local rawLine = zeroxLines[lineIndex]
+					local finalMsg = rawLine:gsub("%[TARGET NAME%]", targetVal)
+
+					lineIndex = lineIndex + 1
+					if lineIndex > #zeroxLines then
+						lineIndex = 1
+					end
+
+					-- Add Emoji Cycle if enabled
+					if emojiCycleEnabled then
+						local currentEmoji = emojis[emojiIndex]
+						finalMsg = finalMsg .. " " .. currentEmoji
+						emojiIndex = emojiIndex + 1
+						if emojiIndex > #emojis then
+							emojiIndex = 1
+						end
+					end
+
+					sendMessage(finalMsg)
+
+					local delayTime = tonumber(DelayBox.Text) or 1
+					task.wait(delayTime < 0.1 and 0.1 or delayTime)
+				end
+			end
+		end)
+	else
+		StartStopBtn.Text = "▶ START SPAM"
+		StartStopBtn.TextColor3 = Color3.fromRGB(0, 255, 120)
+		StatusLabel.Text = "Status: STOPPED / IDLE"
+		StatusLabel.TextColor3 = Color3.fromRGB(255, 90, 90)
+	end
+end)
